@@ -59,16 +59,20 @@ female5
 
 #Question 5
 
+As you can see from this ggplot, the bigger the bill the better the tip rate in general if you look at the linear regression. The anomalies that I can see from this graph is that people tend to give out a lower tip for higher bills. The other anomaly that the lower the bill, the more percentage of tip a person usually gets.  
+
 ```{r}
-ggplot(tips, aes(x = total_bill, y = tip)) + geom_point() + ggtitle("Tip vs. Total Bill") + geom_smooth(method='lm',formula=y~x)
+ggplot(tips, aes(x = total_bill, y = tip)) + geom_point() + ggtitle("Tip vs. Total Bill") + geom_smooth(method='lm',formula=y~x)  + xlab("Total Bill")
 ```
 
 #Question 6
 
+Average tip is 16.08%
+
 ```{r}
 
 tips$tiprate <- tips$tip / tips$total_bill
-mean(tips$tiprate)
+mean(tips$tiprate) * 100
 
 ```
 
@@ -91,6 +95,7 @@ ggplot(order_time,  aes(x=time, y=tiprate)) + geom_boxplot() + labs(x = "Course"
 
 
 #Question 8
+As you can see below, there seems to be a positive correlation. There isnt a distict advantage of a person tipping higher if they were a smoker/non smoker. It also didn't matter what sex they were. 
 
 ```{r}
 
@@ -101,5 +106,8 @@ ggplot(tips, aes(x=total_bill, y=tip, shape=smoker, color=sex)) + geom_point() +
 
 # Question 9 
 
-
+Usually, males tip more every single day of the week. 
+```{r}
+ggplot(tips, aes(x=day, fill=sex)) + geom_bar(position="dodge") + ylab("Number of People") + ggtitle("Relationship Between Day of Week and Gender Paid")
+```
 
