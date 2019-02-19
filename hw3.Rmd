@@ -1,0 +1,105 @@
+---
+title: "hw3"
+author: "Sai Gugulothu"
+date: "2/17/2019"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+#Question 1
+Waiter served 244 parties
+
+
+```{r}
+library("ggplot2")
+data(tips, package="reshape2")  #Loading data
+tips
+
+numParty <- nrow(tips)
+numParty
+
+
+```
+
+#Question 2
+From this we can can see each data type
+total_bill, tip are numerical
+sex, smoker, day, and time are factors of strings
+size is an integer
+```{r}
+str(tips)
+```
+
+
+# Question 3
+
+```{r}
+
+
+
+tips$day <- factor(tips[,"day"], levels = c("Thur","Fri","Sat","Sun"))
+
+ordered_dayz <- order(tips$day)
+day <- tips[ordered_dayz, 5]
+day
+
+```
+
+
+#Question 4
+
+```{r}
+female5 <- tips[tips$sex == 'Female' & tips$size >= 5,]
+female5
+
+```
+
+#Question 5
+
+```{r}
+ggplot(tips, aes(x = total_bill, y = tip)) + geom_point() + ggtitle("Tip vs. Total Bill") + geom_smooth(method='lm',formula=y~x)
+```
+
+#Question 6
+
+```{r}
+
+tips$tiprate <- tips$tip / tips$total_bill
+mean(tips$tiprate)
+
+```
+
+#Question 7
+
+
+
+```{r}
+tips$time <- factor(tips$time, levels = c("Lunch", "Dinner"))
+order_time <- tips[order(tips$time),]
+
+
+
+ggplot(order_time,  aes(x=time, y=tiprate)) + geom_boxplot() + labs(x = "Course", y = "Tip Rate") + coord_flip() + ggtitle("Time of Day Tip Rate") 
+
+
+
+
+```
+
+
+#Question 8
+
+```{r}
+
+ggplot(tips, aes(x=total_bill, y=tip, shape=smoker, color=sex)) + geom_point() + facet_wrap(~day) + xlab('Total Bill') + ylab('Tip Amount')
+
+```
+
+
+# Question 9 
+
+
+
